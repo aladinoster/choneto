@@ -8,7 +8,8 @@ const int IN3 = 7;
 const int IN4 = 8;
 const int ENB = 9;
 
-const int ledPin = 13; // Pin del LED integrado
+// Pin del LED integrado
+const int ledPin = 13;
 
 void setup()
 {
@@ -21,35 +22,56 @@ void setup()
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
 
-  pinMode(LED_BUILTIN, OUTPUT); // Configuramos el pin del LED como salida
+  // Configuramos el pin del LED como salida
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop()
 {
-  // Preparamos la salida para que los dos motores giren hacia adelante
-  for (int i = 0; i <= 100; i += 5) // Incrementos más pequeños (cada 2%)
+  // Preparamos la salida para que los dos motores giren hacia
+
+  // Incrementos más pequeños (cada 5%)
+  for (int i = 0; i <= 100; i += 5)
   {
-    int pwmValue = map(i, 0, 100, 0, 255); // Mapeamos de 0-100% a 0-255 PWM
+    // Mapeamos de 0-100% a 0-255 PWM
+    int pwmValue = map(i, 0, 100, 0, 255);
 
     // Control de parpadeo del LED, más rápido a medida que aumenta PWM
-    int blinkDelay = map(i, 0, 100, 1500, 200);       // Mapeamos 0-100% a 1500-200ms delay (más lento)
-    for (int j = 0; j < 1500 / (blinkDelay * 2); j++) // Número de parpadeos en 1.5 segundos
+
+    // Mapeamos 0-100% a 1500-200ms delay (más lento)
+    int blinkDelay = map(i, 0, 100, 1500, 200);
+
+    // Número de parpadeos en 1.5 segundos
+    for (int j = 0; j < 1500 / (blinkDelay * 2); j++)
     {
-      digitalWrite(ledPin, HIGH); // Encender el LED
-      delay(blinkDelay);          // Esperar por el retardo del parpadeo
-      digitalWrite(ledPin, LOW);  // Apagar el LED
-      delay(blinkDelay);          // Esperar por el retardo del parpadeo
+      // Encender el LED
+      digitalWrite(ledPin, HIGH);
+
+      // Esperar por el retardo del parpadeo
+      delay(blinkDelay);
+
+      // Apagar el LED
+      digitalWrite(ledPin, LOW);
+
+      // Esperar por el retardo del parpadeo
+      delay(blinkDelay);
     }
 
     // Control de los motores, ambos giran hacia adelante
-    digitalWrite(IN1, HIGH); // Motor 1 hacia adelante
+
+    // Motor 1 hacia adelante
+    digitalWrite(IN1, HIGH);
     digitalWrite(IN2, LOW);
-    analogWrite(ENA, pwmValue); // Controlamos la velocidad con PWM
+    // Controlamos la velocidad con PWM
+    analogWrite(ENA, pwmValue);
 
-    digitalWrite(IN3, LOW); // Motor 2 también hacia adelante
+    // Motor 2 también hacia adelante
+    digitalWrite(IN3, LOW);
     digitalWrite(IN4, HIGH);
-    analogWrite(ENB, pwmValue); // Controlamos la velocidad con PWM
+    // Controlamos la velocidad con PWM
+    analogWrite(ENB, pwmValue);
 
-    delay(1500); // Espera de 1.5 segundos para observar el cambio de velocidad
+    // Espera de 1.5 segundos para observar el cambio de velocidad
+    delay(1500);
   }
 }
